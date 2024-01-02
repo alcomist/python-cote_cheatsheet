@@ -68,7 +68,7 @@ def recur_dfs(v, discovered = []):
     discovered.append(v)
     for w in graph[v]:
         if w not in discovered:
-            discovered = dfs(w, discovered)
+            discovered = recur_dfs(w, discovered)
     return discovered
 ```
 
@@ -77,11 +77,11 @@ def iter_dfs(v):
     discovered = []
     s = [v]
     while s:
-    v = s.pop()
-    if v not in discovered:
-        discovered.append(v)
-        for w in graph[v]:
-            stack.append(w)
+        v = s.pop()
+        if v not in discovered:
+            discovered.append(v)
+            for w in graph[v]:
+                stack.append(w)
     return discovered
 ```
 
