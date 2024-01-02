@@ -100,3 +100,43 @@ def bfs(v):
                 q.append(w)
     return discovered
 ```
+
+### 모든 조합 탐색
+
+```python
+def comb(s):
+    
+    answer = []
+    def dfs(index, path):
+        if len(path) == len(s):
+            answer.append(paht)
+            return
+            
+        for i in range(index, len(s)):
+            for j in dic[s[i]]:
+                dfs(i+1, path + j)
+    
+    if not digits:
+        return []
+        
+    dic = {'2': 'abc', '3': 'def ...}
+    dfs(0, '')
+    
+    return answer
+```
+
+```python
+def combination(n, k):
+    answer = []
+
+    def dfs(a, s, k):
+        if k == 0:
+            answer.append(a[:])
+            return
+
+        for i in range(s, n+1):
+            dfs(a + [i], s+1, k-1)
+
+    dfs([], 1, k)
+    return answer
+```
