@@ -3,6 +3,55 @@
 --- 
 ## 알고리즘
 
+### 쿼드트리 뒤집기
+
+[쿼드트리 코드](python/quadtree.py)
+
+buffer를 생성시에 아래와 같이 생성하면
+
+참조 값이 들어가서 제대로 된 업데이트를 할 수 없다.
+```python
+row = ['1'] * 100
+decompressed = [row] * 100
+```
+
+아래와 같이 buffer를 생성해야 정상적으로 처리할 수 있다.
+
+```python
+cols = rows = 100
+decompressed = [['' for j in range(cols)] for i in range(rows)]
+
+def decompress(str, y, x, size):
+
+    head = str[0]
+    temp = str[1:]
+    if head == 'b' or head == 'w':
+        for dy in range(size):
+            for dx in range(size):
+                decompressed[y+dy][x+dx] = head
+    else:
+        half = size//2
+        temp = decompress(temp, y, x, half)
+        temp = decompress(temp, y, x+half, half)
+        temp = decompress(temp, y+half, x, half)
+        temp = decompress(temp, y+half, x+half, half)
+
+    return temp
+```
+
+### 카데인 알고리즘
+
+```python
+def max_subsum(nums):
+    answer = -999999
+    psum = 0
+    for num in nums:
+        psum = max(psum, 0) + num
+        answer = max(psum, answer)
+    
+    return answer
+```
+
 ### 하노이의 탑
 
 고전 컴퓨터 알고리즘 인 파이썬 코드
