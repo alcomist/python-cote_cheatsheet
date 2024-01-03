@@ -3,6 +3,30 @@
 --- 
 ## 알고리즘
 
+### 하노이의 탑
+
+고전 컴퓨터 알고리즘 인 파이썬 코드
+```python
+def hanoi(start, transit, end, n):
+    if n <= 0:
+        return
+    
+    hanoi(start, end, transit, n-1)
+    print(f"{n}번째 원반을 '{start}' 에서 '{transit}'으로 이동")
+    hanoi(end, transit, start, n-1)
+```
+
+C로 배우는 알고리즘 코드
+```python
+def hanoi(n, start, transit, end):
+    if n == 1:
+        print(f"{n}번째 원반을 '{start}' 에서 '{end}'으로 이동")
+    else:
+        hanoi(n-1, start, end, transit)
+        print(f"{n}번째 원반을 '{start}' 에서 '{end}'으로 이동")
+        hanoi(n-1, transit, start, end)
+```
+
 ### 에라토스테네스의 체
 
 호출시 인자 n까지의 각 숫자의 소수 여부가 True, False로 담겨있음
