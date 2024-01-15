@@ -339,16 +339,15 @@ class FenwickTree:
             res += self.tree[i]
             i -= (i & -i)
         return res
-```
-
 
 if __name__ == '__main__':
-nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-tree = FenwickTree(len(nums))
-for i in range(1, len(nums)+1):
-tree.update(i, nums[i-1])
+    nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    tree = FenwickTree(len(nums))
+    for i in range(1, len(nums)+1):
+        tree.update(i, nums[i-1])
 
     print(tree.sum(10))
+```
 
 ### 트라이
 
