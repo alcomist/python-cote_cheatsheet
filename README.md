@@ -400,6 +400,36 @@ class Trie(object):
 ```
 --- 
 ## 그래프
+
+### Union find
+```python
+class UnionFind:
+
+    def __init__(self, n):
+        self.parent =  list(range(n+1))
+        #self.parent = [i for i in range(n+1)]
+
+    def find(self, x):
+        if self.parent[x] != x:
+            return self.find(self.parent[x])
+        return x
+
+    def find_n_update(self, x):
+
+        if self.parent[x] != x:
+            self.parent[x] = self.find_n_update(self.parent[x])
+        return self.parent[x]
+
+    def union(self, a, b):
+        a = self.find(a)
+        b = self.find(b)
+        if a < b:
+            self.parent[b] = a
+        else:
+            self.parent[a] = b
+```
+
+
 ### DFS (깊이 우선 탐색)
 스택으로 구현하며, 재귀를 이용하면 좀더 간단하게 구현 가능
 
