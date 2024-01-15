@@ -1,11 +1,91 @@
 # 파이썬 코딩테스트 Cheat sheet
+---
+
+직접 input 받을 때
+- 일반적으로 list, map 을 활용
+
+```python
+# 공백을 기준으로 구분된 데이터를 입력 받을 떄
+data = list(map(int, input().split()))
+```
+
+```python
+# 공백을 기준으로 구분된 데이터가 많지 않다면
+a, b, c = map(int, input().split())
+```
+
+- sys stdin을 활용해 빠른 input 받기 (꼭 직접 입력을 받아야 한다면, 추천)
+
+import sys
+
+```python
+# 공백으로 구분된 2개 숫자 입력 받기
+N, M = map(int,sys.stdin.readline().split())
+
+# 2차원 리스트 입력 받기
+board = [list(map(int,sys.stdin.readline().split())) for _ in range(N)]
+
+# 문자열 입력 받기
+data = sys.stdin.readline().rstrip()
+```
+
+--- 
+
+## 수학
+
+Modulo 연산
+
+나머지 연산(%)도 나눗셈을 제외하면 분배법칙이 적용된다.
+
+```
+(A + B) % N = ((A % N) + (B % N)) % N
+```
+다음의 법칙이 성립한다는 것인데 이를 증명해보면 다음과 같다.
+
+A 와 B에 해당하는 몫과 나머지를 각각 [q1 r1], [q2 r2] 로 가정해보자.
+그러면
+
+```
+A = q1 X N + r1
+B = q2 X N + r2
+```
+A, B를 나타낼 수 있고 이를 오른쪽 항에 대입하면
+
+```
+(q1 X N + r1 + q2 X N + r2) % N
+= ((q1+q2) X N + r1 + r2) % N
+```
+
+로 치환할 수 있다. 그러면 결국 modulo 는 나머지 연산이기 때문에
+몫에 해당하는 q1 와 q2 는 결국 나머지 연산 과정에서 0 이 되어
+남는 것은
+
+```
+(r1 + r2) % N
+```
+
+이다. 이때 r1 과 r2 는 위에서 나타낸 대로 대한 A와 B의 나머지이므로
+이는 결국
+
+```
+r1 = A % N
+r2 = B % N
+```
+
+이 된다. 따라서
+
+```
+(A + B) % N = ((A % N) + (B % N)) % N
+```
+
+이 성립한다는 것을 증명할 수 있다.
 
 --- 
 ## 알고리즘
 
 ### 쿼드트리 뒤집기
 
-[쿼드트리 코드](python/quadtree.py)
+[쿼드트리 테스트 코드](python/quadtree.py)
 
 buffer를 생성시에 아래와 같이 생성하면
 
@@ -116,7 +196,7 @@ Acyclic graph (비순환 그래프)
 
 ### Traversal
 나무 구조는 나무의 모양을 마치 거꾸로 뒤집어 놓은 모양
-뿌라기 가장 위에 있으며 가지들은 밑으로 벌어지며 향함
+뿌리가 가장 위에 있으며 가지들은 밑으로 벌어지며 향함
 그리고 잎이 달려있음.
 
 노드 = 버텍스 = 정보가 담겨있는 곳
@@ -188,6 +268,35 @@ def levelorder(node):
             q.append(node.left)
         if node.right != None:
             q.append(node.right)
+```
+
+### 세그먼트 트리 (Segmemnt tree)
+
+```python
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+tree = [0] * (len(nums)*4)
+
+def init_segment_tree(a, i, left, right):
+    if left == right:
+        tree[i] = a[left]
+        return tree[i]
+    mid = (right+left)//2
+    tree[i] = init_segment_tree(a, i*2+1, left, mid) + init_segment_tree(a, i*2+2, mid+1, right)
+    return tree[i]
+
+
+def tree_sum(start, end, i, left, right):
+    if left > end or right < start:
+        return 0
+    if left <= start and right >= end:
+        return tree[i]
+    mid = (start + end) // 2
+    return tree_sum(start, mid, i*2+1, left, right) + tree_sum(mid+1, end, i*2+2, left, right)
+
+
+init_segment_tree(nums, 0, 0, len(nums)-1)
+
+print('sum 0 to 5 : ', tree_sum(0, len(nums)-1, 0, 0, 5))
 ```
 
 ### 트라이
