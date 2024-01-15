@@ -272,6 +272,21 @@ def levelorder(node):
 
 ### 세그먼트 트리 (Segmemnt tree)
 
+구간 트리 
+
+세그먼트 트리를 이용하면, 1번 연산을 O(logN), 2번 연산도 O(logN)만에 수행 가능
+
+세그먼트 트리의 리프 노드와 리프 노드가 아닌 다른 노드는 다음과 같은 의미를 가진다.
+
+1) 리프 노드 : 배열의 그 수 자체
+
+2) 다른 노드 : 왼쪽 자식과 오른쪽 자식의 합을 저장함.
+
+1. 루트가 0으로 시작하는 경우
+- 노드의 번호가 i일때, 왼쪽 자식의 번호는 2*i+1, 오른쪽 자식의 번호는 2*i + 2가 된다.
+2. 루트가 1로 시작하는 경우
+- 노드의 번호가 i일때, 왼쪽 자식의 번호는 2*i, 오른쪽 자식의 번호는 2*i + 1이 된다.
+
 ```python
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 tree = [0] * (len(nums)*4)
@@ -300,8 +315,53 @@ print('sum 0 to 5 : ', tree_sum(0, len(nums)-1, 0, 0, 5))
 ```
 
 ### 트라이
+
+트라이(Trie)는 문자열을 저장하고 효율적으로 탐색하기 위한 트리 형태의 자료구조
+
+우리가 검색할 때 볼 수 있는 자동완성 기능, 사전 검색 등 문자열을 탐색하는데 특화되어있는 자료구조
+
+래딕스 트리(radix tree) or 접두사 트리(prefix tree) or 탐색 트리(retrieval tree)라고도 함.
+
+트라이는 retrieval tree에서 나온 단어
+
+예를 들어 'Algorithm'라는 단어를 검색하기 위해서는 제일 먼저 'A'를 찾고, 다음에 'l', 'g', ... 의 순서로 찾으면 된다. 이러한 개념을 적용한 것이 트라이(Trie)이다.
+
 ```python
-tree = [0] * 2**(ceil(log(n, 2) + 1))
+class TrieNode(object):
+    def __init__(self, key, terminal=False):
+        self.key = key
+        self.terminal = terminal
+        self.children = {}
+
+
+class Trie(object):
+    def __init__(self):
+        self.head = TrieNode(None)
+
+    # 문자열 삽입
+    def insert(self, string):
+        curr_node = self.head
+
+        for char in string:
+            if char not in curr_node.children:
+                curr_node.children[char] = TrieNode(char)
+
+            curr_node = curr_node.children[char]
+
+        curr_node.terminal = True
+
+    def search(self, string):
+
+        curr_node = self.head
+
+        for char in string:
+            if char in curr_node.children:
+                curr_node = curr_node.children[char]
+            else:
+                return False
+
+        return curr_node.terminal
+
 ```
 --- 
 ## 그래프
