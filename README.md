@@ -314,6 +314,42 @@ init_segment_tree(nums, 0, 0, len(nums)-1)
 print('sum 0 to 5 : ', tree_sum(0, len(nums)-1, 0, 0, 5))
 ```
 
+
+### 펜윅트리 (Fenwick tree)
+바이너리 인덱스 트리라고도 불림
+세그먼트 트리와 비슷하나 구간합이 아닌 누적합을 가지고 있어 구간합을 구하려면
+앞부분의 인덱스를 빼줘야 한다.
+
+```python
+class FenwickTree:
+   def __init__(self, n):
+      self.n = n
+      self.arr = [0]*(n+1)
+      self.tree = [0]*(n+1)
+   
+    def update(self, i, num):
+        self.arr[i] += num
+        while i <= self.n:
+            self.tree[i] += num
+            i += (i & -i)
+
+    def sum(self, i):
+        res = 0
+        while i > 0:
+            res += self.tree[i]
+            i -= (i & -i)
+        return res
+```
+
+
+if __name__ == '__main__':
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+tree = FenwickTree(len(nums))
+for i in range(1, len(nums)+1):
+tree.update(i, nums[i-1])
+
+    print(tree.sum(10))
+
 ### 트라이
 
 트라이(Trie)는 문자열을 저장하고 효율적으로 탐색하기 위한 트리 형태의 자료구조
