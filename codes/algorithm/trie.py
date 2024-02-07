@@ -7,7 +7,7 @@ class TrieNode:
         self.word = False
 
 
-class Trie():
+class Trie:
     def __init__(self):
         self.root = TrieNode(None)
 
@@ -49,6 +49,7 @@ if __name__ == '__main__':
     trie.insert('apple')
     trie.insert('application')
     trie.insert('applause')
+
     if not trie.search('pple'):
         print('ok')
 
