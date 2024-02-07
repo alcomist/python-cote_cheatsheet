@@ -10,8 +10,8 @@ class FenwickTree:
         self.data = [0] * (self.n + 1)
         self.tree = [0] * (self.n + 1)
 
-        for i in range(1, len(nums) + 1):
-            tree.update(i, data[i - 1])
+        for node in range(1, len(nums) + 1):
+            tree.update(node, data[node - 1])
 
     def update(self, node, val):
 
@@ -43,5 +43,7 @@ if __name__ == '__main__':
 
     tree.update(0, 10)
     tree.update(1, 10)
+    print(tree.sum(10))
 
+    tree.update(1, 1)
     print(tree.sum(10))
