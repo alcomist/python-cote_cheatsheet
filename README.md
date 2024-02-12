@@ -85,7 +85,7 @@ r2 = B % N
 
 ### 쿼드트리 뒤집기
 
-[쿼드트리 테스트 코드](python/quadtree.py)
+[쿼드트리 테스트 코드](codes/algospot/quadtree.py)
 
 buffer를 생성시에 아래와 같이 생성하면
 
