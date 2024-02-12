@@ -1,5 +1,7 @@
 # LeetCode
 # https://leetcode.com/problems/word-ladder/
+import collections
+
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
