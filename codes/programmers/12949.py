@@ -1,21 +1,14 @@
 def solution(arr1, arr2):
-    answer = [[]]
 
-    def multiply(a1, a2):
+    len_i = len(arr1)
+    len_k = len(arr2)
+    len_j = len(arr2[0])
 
-        a = []
-        for i in range(len(a1)):
-            a.append(a1[i] * a2[i])
-
-        return a
-
-    for i, a in enumerate(arr1):
-        for j, b in enumerate(arr2):
-
-            print(i, j, a, b, multiply(a, b))
-        print()
-
-
+    answer = [[0] * len_j for _ in range(len_i)]
+    for i in range(len_i):
+        for j in range(len_j):
+            for k in range(len_k):
+                answer[i][j] += arr1[i][k] * arr2[k][j]
     return answer
 
 
