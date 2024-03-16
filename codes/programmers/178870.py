@@ -1,6 +1,23 @@
 def solution(sequence, k):
+    n = len(sequence)
+
+    result = 0
+    end = 0
+    interval = n
+
     answer = []
+
+    for start in range(n):
+        while result < k and end < n:
+            result += sequence[end]
+            end += 1
+        if result == k and end-1-start < interval:
+            answer = [start, end-1]
+            interval = end-1-start
+        result -= sequence[start]
+
     return answer
+
 
 
 if __name__ == '__main__':
